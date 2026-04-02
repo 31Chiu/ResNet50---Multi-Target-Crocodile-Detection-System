@@ -172,3 +172,124 @@
 2026-03-04 23:36:14,885 - INFO - Epoch 49/50 [LR: 0.000001] | Train -> Loss: 0.0373 Acc: 0.9869 Prec: 0.9857 Rec: 0.9880 mAP: 0.9990 | Val -> Loss: 0.0135 Acc: 0.9950 Prec: 0.9959 Rec: 0.9935 mAP: 0.9999
 2026-03-04 23:37:04,111 - INFO - Epoch 50/50 [LR: 0.000001] | Train -> Loss: 0.0349 Acc: 0.9874 Prec: 0.9834 Rec: 0.9914 mAP: 0.9993 | Val -> Loss: 0.0136 Acc: 0.9950 Prec: 0.9967 Rec: 0.9927 mAP: 0.9999
 2026-03-04 23:37:04,111 - INFO - Training complete. Best validation accuracy:  0.9958
+
+
+Modify 224x224 to 640x640 Starting Here
+2026-04-01 12:13:02,845 - INFO - Number of classes: 2
+2026-04-01 12:13:02,846 - INFO - Class names: ['crocodile', 'non-crocodile']
+2026-04-01 12:13:03,158 - INFO - Starting training on device: cuda
+2026-04-01 12:28:07,922 - INFO - Starting training on device: cuda
+2026-04-01 12:32:03,901 - INFO - Epoch 01/50 [LR: 0.001000] | Train -> Loss: 0.4598 Acc: 0.7938 Prec: 0.7938 Rec: 0.7938 mAP: 0.8760 | Val -> Loss: 0.4739 Acc: 0.7764 Prec: 0.7950 Rec: 0.7843 mAP: 0.8871
+2026-04-01 12:32:04,326 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 12:35:53,644 - INFO - Epoch 02/50 [LR: 0.001000] | Train -> Loss: 0.3963 Acc: 0.8365 Prec: 0.8365 Rec: 0.8365 mAP: 0.9041 | Val -> Loss: 0.7512 Acc: 0.7185 Prec: 0.7424 Rec: 0.7064 mAP: 0.7934
+2026-04-01 12:39:43,183 - INFO - Epoch 03/50 [LR: 0.001000] | Train -> Loss: 0.3653 Acc: 0.8468 Prec: 0.8468 Rec: 0.8468 mAP: 0.9203 | Val -> Loss: 0.6570 Acc: 0.7577 Prec: 0.7703 Rec: 0.7493 mAP: 0.8249
+2026-04-01 12:43:34,062 - INFO - Epoch 04/50 [LR: 0.001000] | Train -> Loss: 0.3217 Acc: 0.8714 Prec: 0.8714 Rec: 0.8714 mAP: 0.9371 | Val -> Loss: 0.5061 Acc: 0.8400 Prec: 0.8792 Rec: 0.8292 mAP: 0.9252
+2026-04-01 12:43:34,461 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 12:47:23,145 - INFO - Epoch 05/50 [LR: 0.001000] | Train -> Loss: 0.3203 Acc: 0.8718 Prec: 0.8720 Rec: 0.8719 mAP: 0.9397 | Val -> Loss: 0.5184 Acc: 0.8091 Prec: 0.8503 Rec: 0.7973 mAP: 0.9327
+2026-04-01 12:51:11,937 - INFO - Epoch 06/50 [LR: 0.001000] | Train -> Loss: 0.3269 Acc: 0.8652 Prec: 0.8652 Rec: 0.8652 mAP: 0.9364 | Val -> Loss: 0.4938 Acc: 0.7905 Prec: 0.8292 Rec: 0.7785 mAP: 0.9351
+2026-04-01 12:55:00,670 - INFO - Epoch 07/50 [LR: 0.001000] | Train -> Loss: 0.2925 Acc: 0.8847 Prec: 0.8847 Rec: 0.8847 mAP: 0.9486 | Val -> Loss: 0.2100 Acc: 0.9211 Prec: 0.9207 Rec: 0.9224 mAP: 0.9769
+2026-04-01 12:55:01,080 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 12:58:50,358 - INFO - Epoch 08/50 [LR: 0.001000] | Train -> Loss: 0.2977 Acc: 0.8814 Prec: 0.8814 Rec: 0.8814 mAP: 0.9453 | Val -> Loss: 0.6390 Acc: 0.7851 Prec: 0.8427 Rec: 0.7710 mAP: 0.9151
+2026-04-01 13:02:39,367 - INFO - Epoch 09/50 [LR: 0.001000] | Train -> Loss: 0.2716 Acc: 0.8912 Prec: 0.8912 Rec: 0.8912 mAP: 0.9557 | Val -> Loss: 0.3485 Acc: 0.8690 Prec: 0.8969 Rec: 0.8602 mAP: 0.9705
+2026-04-01 13:06:28,131 - INFO - Epoch 10/50 [LR: 0.001000] | Train -> Loss: 0.2552 Acc: 0.9029 Prec: 0.9029 Rec: 0.9029 mAP: 0.9624 | Val -> Loss: 0.2367 Acc: 0.9154 Prec: 0.9234 Rec: 0.9112 mAP: 0.9744
+2026-04-01 13:10:17,315 - INFO - Epoch 11/50 [LR: 0.000100] | Train -> Loss: 0.2414 Acc: 0.9033 Prec: 0.9034 Rec: 0.9034 mAP: 0.9655 | Val -> Loss: 0.5226 Acc: 0.8305 Prec: 0.8723 Rec: 0.8191 mAP: 0.9674
+2026-04-01 13:14:06,171 - INFO - Epoch 12/50 [LR: 0.000100] | Train -> Loss: 0.2259 Acc: 0.9115 Prec: 0.9115 Rec: 0.9114 mAP: 0.9704 | Val -> Loss: 0.3138 Acc: 0.8869 Prec: 0.8981 Rec: 0.8814 mAP: 0.9653
+2026-04-01 13:17:54,922 - INFO - Epoch 13/50 [LR: 0.000100] | Train -> Loss: 0.1903 Acc: 0.9282 Prec: 0.9282 Rec: 0.9282 mAP: 0.9786 | Val -> Loss: 0.2774 Acc: 0.8987 Prec: 0.9068 Rec: 0.8941 mAP: 0.9703
+2026-04-01 13:21:50,783 - INFO - Epoch 14/50 [LR: 0.000100] | Train -> Loss: 0.1878 Acc: 0.9236 Prec: 0.9236 Rec: 0.9236 mAP: 0.9796 | Val -> Loss: 0.4154 Acc: 0.8651 Prec: 0.8876 Rec: 0.8571 mAP: 0.9673
+2026-04-01 13:25:39,651 - INFO - Epoch 15/50 [LR: 0.000010] | Train -> Loss: 0.1775 Acc: 0.9334 Prec: 0.9334 Rec: 0.9334 mAP: 0.9798 | Val -> Loss: 0.3052 Acc: 0.8922 Prec: 0.9068 Rec: 0.8861 mAP: 0.9755
+2026-04-01 13:29:35,372 - INFO - Epoch 16/50 [LR: 0.000010] | Train -> Loss: 0.1484 Acc: 0.9444 Prec: 0.9444 Rec: 0.9444 mAP: 0.9877 | Val -> Loss: 0.3032 Acc: 0.8945 Prec: 0.9078 Rec: 0.8887 mAP: 0.9736
+2026-04-01 13:33:23,982 - INFO - Epoch 17/50 [LR: 0.000010] | Train -> Loss: 0.1565 Acc: 0.9382 Prec: 0.9382 Rec: 0.9382 mAP: 0.9866 | Val -> Loss: 0.2362 Acc: 0.9185 Prec: 0.9218 Rec: 0.9158 mAP: 0.9751
+2026-04-01 13:37:12,687 - INFO - Epoch 18/50 [LR: 0.000010] | Train -> Loss: 0.1529 Acc: 0.9453 Prec: 0.9454 Rec: 0.9453 mAP: 0.9858 | Val -> Loss: 0.2257 Acc: 0.9200 Prec: 0.9235 Rec: 0.9172 mAP: 0.9768
+2026-04-01 13:41:01,351 - INFO - Epoch 19/50 [LR: 0.000001] | Train -> Loss: 0.1585 Acc: 0.9384 Prec: 0.9384 Rec: 0.9384 mAP: 0.9852 | Val -> Loss: 0.2428 Acc: 0.9143 Prec: 0.9204 Rec: 0.9106 mAP: 0.9772
+2026-04-01 13:44:50,071 - INFO - Epoch 20/50 [LR: 0.000001] | Train -> Loss: 0.1539 Acc: 0.9401 Prec: 0.9401 Rec: 0.9401 mAP: 0.9865 | Val -> Loss: 0.2405 Acc: 0.9147 Prec: 0.9197 Rec: 0.9113 mAP: 0.9766
+2026-04-01 13:48:38,751 - INFO - Epoch 21/50 [LR: 0.000001] | Train -> Loss: 0.1504 Acc: 0.9458 Prec: 0.9458 Rec: 0.9458 mAP: 0.9867 | Val -> Loss: 0.2420 Acc: 0.9116 Prec: 0.9193 Rec: 0.9074 mAP: 0.9794
+2026-04-01 13:52:27,320 - INFO - Epoch 22/50 [LR: 0.000001] | Train -> Loss: 0.1605 Acc: 0.9389 Prec: 0.9389 Rec: 0.9389 mAP: 0.9849 | Val -> Loss: 0.2610 Acc: 0.9051 Prec: 0.9147 Rec: 0.9004 mAP: 0.9783
+2026-04-01 13:56:15,809 - INFO - Epoch 23/50 [LR: 0.000000] | Train -> Loss: 0.1491 Acc: 0.9415 Prec: 0.9416 Rec: 0.9415 mAP: 0.9870 | Val -> Loss: 0.2569 Acc: 0.9070 Prec: 0.9144 Rec: 0.9029 mAP: 0.9777
+2026-04-01 14:00:04,600 - INFO - Epoch 24/50 [LR: 0.000000] | Train -> Loss: 0.1562 Acc: 0.9377 Prec: 0.9377 Rec: 0.9377 mAP: 0.9866 | Val -> Loss: 0.2522 Acc: 0.9093 Prec: 0.9159 Rec: 0.9054 mAP: 0.9768
+2026-04-01 14:03:53,023 - INFO - Epoch 25/50 [LR: 0.000000] | Train -> Loss: 0.1453 Acc: 0.9501 Prec: 0.9501 Rec: 0.9501 mAP: 0.9882 | Val -> Loss: 0.2503 Acc: 0.9082 Prec: 0.9162 Rec: 0.9038 mAP: 0.9782
+2026-04-01 14:07:41,594 - INFO - Epoch 26/50 [LR: 0.000000] | Train -> Loss: 0.1504 Acc: 0.9446 Prec: 0.9446 Rec: 0.9446 mAP: 0.9865 | Val -> Loss: 0.2584 Acc: 0.9059 Prec: 0.9161 Rec: 0.9010 mAP: 0.9792
+2026-04-01 14:11:30,710 - INFO - Epoch 27/50 [LR: 0.000000] | Train -> Loss: 0.1591 Acc: 0.9396 Prec: 0.9396 Rec: 0.9396 mAP: 0.9842 | Val -> Loss: 0.2729 Acc: 0.8998 Prec: 0.9108 Rec: 0.8946 mAP: 0.9779
+2026-04-01 14:15:19,186 - INFO - Epoch 28/50 [LR: 0.000000] | Train -> Loss: 0.1550 Acc: 0.9415 Prec: 0.9415 Rec: 0.9415 mAP: 0.9860 | Val -> Loss: 0.2753 Acc: 0.9036 Prec: 0.9133 Rec: 0.8988 mAP: 0.9780
+2026-04-01 14:19:08,193 - INFO - Epoch 29/50 [LR: 0.000000] | Train -> Loss: 0.1427 Acc: 0.9456 Prec: 0.9456 Rec: 0.9456 mAP: 0.9881 | Val -> Loss: 0.2663 Acc: 0.9059 Prec: 0.9150 Rec: 0.9012 mAP: 0.9781
+2026-04-01 14:23:01,100 - INFO - Epoch 30/50 [LR: 0.000000] | Train -> Loss: 0.1489 Acc: 0.9427 Prec: 0.9427 Rec: 0.9427 mAP: 0.9874 | Val -> Loss: 0.2573 Acc: 0.9059 Prec: 0.9163 Rec: 0.9009 mAP: 0.9787
+2026-04-01 14:26:50,322 - INFO - Epoch 31/50 [LR: 0.000000] | Train -> Loss: 0.1560 Acc: 0.9408 Prec: 0.9408 Rec: 0.9408 mAP: 0.9857 | Val -> Loss: 0.2910 Acc: 0.8979 Prec: 0.9115 Rec: 0.8921 mAP: 0.9781
+2026-04-01 14:30:43,759 - INFO - Epoch 32/50 [LR: 0.000000] | Train -> Loss: 0.1532 Acc: 0.9389 Prec: 0.9389 Rec: 0.9389 mAP: 0.9861 | Val -> Loss: 0.2890 Acc: 0.8960 Prec: 0.9111 Rec: 0.8898 mAP: 0.9798
+2026-04-01 14:34:32,634 - INFO - Epoch 33/50 [LR: 0.000000] | Train -> Loss: 0.1641 Acc: 0.9401 Prec: 0.9401 Rec: 0.9401 mAP: 0.9832 | Val -> Loss: 0.2367 Acc: 0.9135 Prec: 0.9191 Rec: 0.9099 mAP: 0.9779
+2026-04-01 14:38:21,494 - INFO - Epoch 34/50 [LR: 0.000000] | Train -> Loss: 0.1505 Acc: 0.9477 Prec: 0.9478 Rec: 0.9477 mAP: 0.9866 | Val -> Loss: 0.2623 Acc: 0.9036 Prec: 0.9148 Rec: 0.8984 mAP: 0.9790
+2026-04-01 14:42:10,523 - INFO - Epoch 35/50 [LR: 0.000000] | Train -> Loss: 0.1542 Acc: 0.9437 Prec: 0.9437 Rec: 0.9437 mAP: 0.9864 | Val -> Loss: 0.2451 Acc: 0.9078 Prec: 0.9161 Rec: 0.9034 mAP: 0.9788
+2026-04-01 14:45:59,643 - INFO - Epoch 36/50 [LR: 0.000000] | Train -> Loss: 0.1506 Acc: 0.9442 Prec: 0.9442 Rec: 0.9441 mAP: 0.9865 | Val -> Loss: 0.2871 Acc: 0.8975 Prec: 0.9107 Rec: 0.8918 mAP: 0.9783
+2026-04-01 14:49:49,916 - INFO - Epoch 37/50 [LR: 0.000000] | Train -> Loss: 0.1504 Acc: 0.9449 Prec: 0.9449 Rec: 0.9449 mAP: 0.9869 | Val -> Loss: 0.2616 Acc: 0.9128 Prec: 0.9190 Rec: 0.9090 mAP: 0.9769
+2026-04-01 14:53:39,074 - INFO - Epoch 38/50 [LR: 0.000000] | Train -> Loss: 0.1506 Acc: 0.9432 Prec: 0.9432 Rec: 0.9432 mAP: 0.9873 | Val -> Loss: 0.2523 Acc: 0.9063 Prec: 0.9162 Rec: 0.9014 mAP: 0.9793
+2026-04-01 14:57:27,676 - INFO - Epoch 39/50 [LR: 0.000000] | Train -> Loss: 0.1477 Acc: 0.9432 Prec: 0.9432 Rec: 0.9432 mAP: 0.9874 | Val -> Loss: 0.2419 Acc: 0.9150 Prec: 0.9205 Rec: 0.9115 mAP: 0.9780
+2026-04-01 15:01:16,616 - INFO - Epoch 40/50 [LR: 0.000000] | Train -> Loss: 0.1457 Acc: 0.9501 Prec: 0.9501 Rec: 0.9501 mAP: 0.9883 | Val -> Loss: 0.2802 Acc: 0.8956 Prec: 0.9108 Rec: 0.8894 mAP: 0.9801
+2026-04-01 15:05:05,798 - INFO - Epoch 41/50 [LR: 0.000000] | Train -> Loss: 0.1637 Acc: 0.9348 Prec: 0.9348 Rec: 0.9348 mAP: 0.9845 | Val -> Loss: 0.2922 Acc: 0.8987 Prec: 0.9123 Rec: 0.8929 mAP: 0.9786
+2026-04-01 15:08:54,791 - INFO - Epoch 42/50 [LR: 0.000000] | Train -> Loss: 0.1519 Acc: 0.9420 Prec: 0.9420 Rec: 0.9420 mAP: 0.9865 | Val -> Loss: 0.2595 Acc: 0.9067 Prec: 0.9154 Rec: 0.9021 mAP: 0.9779
+2026-04-01 15:12:43,715 - INFO - Epoch 43/50 [LR: 0.000000] | Train -> Loss: 0.1518 Acc: 0.9430 Prec: 0.9430 Rec: 0.9430 mAP: 0.9867 | Val -> Loss: 0.2583 Acc: 0.9036 Prec: 0.9129 Rec: 0.8989 mAP: 0.9786
+2026-04-01 15:16:32,705 - INFO - Epoch 44/50 [LR: 0.000000] | Train -> Loss: 0.1497 Acc: 0.9446 Prec: 0.9446 Rec: 0.9446 mAP: 0.9872 | Val -> Loss: 0.2486 Acc: 0.9101 Prec: 0.9199 Rec: 0.9053 mAP: 0.9795
+2026-04-01 15:20:21,773 - INFO - Epoch 45/50 [LR: 0.000000] | Train -> Loss: 0.1421 Acc: 0.9475 Prec: 0.9475 Rec: 0.9475 mAP: 0.9890 | Val -> Loss: 0.2516 Acc: 0.9101 Prec: 0.9195 Rec: 0.9054 mAP: 0.9790
+2026-04-01 15:24:16,784 - INFO - Epoch 46/50 [LR: 0.000000] | Train -> Loss: 0.1546 Acc: 0.9427 Prec: 0.9427 Rec: 0.9427 mAP: 0.9865 | Val -> Loss: 0.3158 Acc: 0.8918 Prec: 0.9071 Rec: 0.8856 mAP: 0.9779
+2026-04-01 15:28:05,822 - INFO - Epoch 47/50 [LR: 0.000000] | Train -> Loss: 0.1469 Acc: 0.9494 Prec: 0.9494 Rec: 0.9494 mAP: 0.9871 | Val -> Loss: 0.2573 Acc: 0.9074 Prec: 0.9156 Rec: 0.9030 mAP: 0.9777
+2026-04-01 15:31:59,167 - INFO - Epoch 48/50 [LR: 0.000000] | Train -> Loss: 0.1512 Acc: 0.9456 Prec: 0.9456 Rec: 0.9456 mAP: 0.9867 | Val -> Loss: 0.2725 Acc: 0.8990 Prec: 0.9123 Rec: 0.8933 mAP: 0.9799
+2026-04-01 15:35:48,104 - INFO - Epoch 49/50 [LR: 0.000000] | Train -> Loss: 0.1486 Acc: 0.9442 Prec: 0.9442 Rec: 0.9442 mAP: 0.9877 | Val -> Loss: 0.2288 Acc: 0.9166 Prec: 0.9218 Rec: 0.9132 mAP: 0.9788
+2026-04-01 15:39:36,939 - INFO - Epoch 50/50 [LR: 0.000000] | Train -> Loss: 0.1566 Acc: 0.9403 Prec: 0.9403 Rec: 0.9403 mAP: 0.9853 | Val -> Loss: 0.2710 Acc: 0.9021 Prec: 0.9134 Rec: 0.8968 mAP: 0.9783
+2026-04-01 15:39:36,939 - INFO - Training complete. Best validation accuracy:  0.9211
+2026-04-01 15:53:07,403 - INFO - Starting training on device: cuda
+2026-04-01 15:57:00,358 - INFO - Epoch 01/50 [LR: 0.001000] | Train -> Loss: 0.4435 Acc: 0.8117 Prec: 0.8118 Rec: 0.8117 mAP: 0.8799 | Val -> Loss: 0.6564 Acc: 0.7067 Prec: 0.7365 Rec: 0.7173 mAP: 0.8360
+2026-04-01 15:57:00,628 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 16:00:46,952 - INFO - Epoch 02/50 [LR: 0.001000] | Train -> Loss: 0.3911 Acc: 0.8351 Prec: 0.8351 Rec: 0.8351 mAP: 0.9029 | Val -> Loss: 0.5361 Acc: 0.7684 Prec: 0.7711 Rec: 0.7636 mAP: 0.8445
+2026-04-01 16:00:47,242 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 16:04:33,188 - INFO - Epoch 03/50 [LR: 0.001000] | Train -> Loss: 0.3471 Acc: 0.8554 Prec: 0.8554 Rec: 0.8554 mAP: 0.9285 | Val -> Loss: 0.3196 Acc: 0.8697 Prec: 0.8699 Rec: 0.8715 mAP: 0.9469
+2026-04-01 16:04:33,458 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 16:08:22,713 - INFO - Epoch 04/50 [LR: 0.001000] | Train -> Loss: 0.3067 Acc: 0.8826 Prec: 0.8826 Rec: 0.8826 mAP: 0.9429 | Val -> Loss: 0.7648 Acc: 0.7878 Prec: 0.8469 Rec: 0.7736 mAP: 0.9130
+2026-04-01 16:12:11,703 - INFO - Epoch 05/50 [LR: 0.001000] | Train -> Loss: 0.3105 Acc: 0.8711 Prec: 0.8712 Rec: 0.8711 mAP: 0.9422 | Val -> Loss: 0.6701 Acc: 0.8034 Prec: 0.8404 Rec: 0.7920 mAP: 0.8835
+2026-04-01 16:16:00,525 - INFO - Epoch 06/50 [LR: 0.001000] | Train -> Loss: 0.3072 Acc: 0.8759 Prec: 0.8759 Rec: 0.8759 mAP: 0.9422 | Val -> Loss: 0.3527 Acc: 0.8747 Prec: 0.8798 Rec: 0.8790 mAP: 0.9602
+2026-04-01 16:16:00,939 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 16:19:49,852 - INFO - Epoch 07/50 [LR: 0.001000] | Train -> Loss: 0.2879 Acc: 0.8874 Prec: 0.8874 Rec: 0.8873 mAP: 0.9510 | Val -> Loss: 0.4724 Acc: 0.8579 Prec: 0.8775 Rec: 0.8503 mAP: 0.9206
+2026-04-01 16:23:38,630 - INFO - Epoch 08/50 [LR: 0.001000] | Train -> Loss: 0.2814 Acc: 0.8804 Prec: 0.8805 Rec: 0.8804 mAP: 0.9529 | Val -> Loss: 0.5872 Acc: 0.7878 Prec: 0.8341 Rec: 0.7748 mAP: 0.9067
+2026-04-01 16:27:33,321 - INFO - Epoch 09/50 [LR: 0.001000] | Train -> Loss: 0.2627 Acc: 0.8938 Prec: 0.8938 Rec: 0.8938 mAP: 0.9599 | Val -> Loss: 0.2523 Acc: 0.9173 Prec: 0.9217 Rec: 0.9142 mAP: 0.9685
+2026-04-01 16:27:33,918 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 16:31:22,582 - INFO - Epoch 10/50 [LR: 0.001000] | Train -> Loss: 0.2646 Acc: 0.8924 Prec: 0.8925 Rec: 0.8924 mAP: 0.9592 | Val -> Loss: 0.2936 Acc: 0.8987 Prec: 0.9001 Rec: 0.8966 mAP: 0.9558
+2026-04-01 16:35:13,625 - INFO - Epoch 11/50 [LR: 0.001000] | Train -> Loss: 0.2432 Acc: 0.9074 Prec: 0.9075 Rec: 0.9074 mAP: 0.9658 | Val -> Loss: 0.2830 Acc: 0.8952 Prec: 0.9095 Rec: 0.8892 mAP: 0.9774
+2026-04-01 16:39:02,477 - INFO - Epoch 12/50 [LR: 0.001000] | Train -> Loss: 0.2445 Acc: 0.9014 Prec: 0.9014 Rec: 0.9014 mAP: 0.9661 | Val -> Loss: 0.4981 Acc: 0.8583 Prec: 0.8830 Rec: 0.8498 mAP: 0.9546
+2026-04-01 16:42:51,147 - INFO - Epoch 13/50 [LR: 0.000100] | Train -> Loss: 0.2527 Acc: 0.8959 Prec: 0.8959 Rec: 0.8959 mAP: 0.9613 | Val -> Loss: 0.2755 Acc: 0.8975 Prec: 0.9028 Rec: 0.8938 mAP: 0.9639
+2026-04-01 16:46:39,702 - INFO - Epoch 14/50 [LR: 0.000100] | Train -> Loss: 0.1954 Acc: 0.9198 Prec: 0.9198 Rec: 0.9198 mAP: 0.9783 | Val -> Loss: 0.2811 Acc: 0.8987 Prec: 0.9074 Rec: 0.8940 mAP: 0.9721
+2026-04-01 16:50:28,206 - INFO - Epoch 15/50 [LR: 0.000100] | Train -> Loss: 0.1784 Acc: 0.9305 Prec: 0.9306 Rec: 0.9306 mAP: 0.9804 | Val -> Loss: 0.2982 Acc: 0.8971 Prec: 0.9104 Rec: 0.8914 mAP: 0.9757
+2026-04-01 16:54:17,156 - INFO - Epoch 16/50 [LR: 0.000100] | Train -> Loss: 0.1432 Acc: 0.9482 Prec: 0.9482 Rec: 0.9482 mAP: 0.9890 | Val -> Loss: 0.2790 Acc: 0.9105 Prec: 0.9190 Rec: 0.9060 mAP: 0.9771
+2026-04-01 16:58:05,903 - INFO - Epoch 17/50 [LR: 0.000100] | Train -> Loss: 0.1525 Acc: 0.9420 Prec: 0.9420 Rec: 0.9420 mAP: 0.9870 | Val -> Loss: 0.2113 Acc: 0.9261 Prec: 0.9272 Rec: 0.9245 mAP: 0.9810
+2026-04-01 16:58:06,326 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 17:01:54,724 - INFO - Epoch 18/50 [LR: 0.000100] | Train -> Loss: 0.1438 Acc: 0.9470 Prec: 0.9470 Rec: 0.9470 mAP: 0.9873 | Val -> Loss: 0.2536 Acc: 0.9170 Prec: 0.9236 Rec: 0.9131 mAP: 0.9804
+2026-04-01 17:05:43,446 - INFO - Epoch 19/50 [LR: 0.000100] | Train -> Loss: 0.1441 Acc: 0.9449 Prec: 0.9449 Rec: 0.9449 mAP: 0.9877 | Val -> Loss: 0.2009 Acc: 0.9322 Prec: 0.9361 Rec: 0.9294 mAP: 0.9829
+2026-04-01 17:05:43,717 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 17:09:32,733 - INFO - Epoch 20/50 [LR: 0.000100] | Train -> Loss: 0.1316 Acc: 0.9556 Prec: 0.9556 Rec: 0.9556 mAP: 0.9890 | Val -> Loss: 0.2441 Acc: 0.9192 Prec: 0.9263 Rec: 0.9153 mAP: 0.9815
+2026-04-01 17:13:23,565 - INFO - Epoch 21/50 [LR: 0.000100] | Train -> Loss: 0.1252 Acc: 0.9518 Prec: 0.9518 Rec: 0.9518 mAP: 0.9910 | Val -> Loss: 0.2525 Acc: 0.9200 Prec: 0.9294 Rec: 0.9155 mAP: 0.9823
+2026-04-01 17:17:10,133 - INFO - Epoch 22/50 [LR: 0.000100] | Train -> Loss: 0.1224 Acc: 0.9573 Prec: 0.9573 Rec: 0.9573 mAP: 0.9910 | Val -> Loss: 0.2582 Acc: 0.9181 Prec: 0.9261 Rec: 0.9139 mAP: 0.9817
+2026-04-01 17:20:56,412 - INFO - Epoch 23/50 [LR: 0.000010] | Train -> Loss: 0.1146 Acc: 0.9575 Prec: 0.9576 Rec: 0.9575 mAP: 0.9917 | Val -> Loss: 0.2562 Acc: 0.9181 Prec: 0.9275 Rec: 0.9135 mAP: 0.9828
+2026-04-01 17:24:45,791 - INFO - Epoch 24/50 [LR: 0.000010] | Train -> Loss: 0.1114 Acc: 0.9578 Prec: 0.9578 Rec: 0.9578 mAP: 0.9929 | Val -> Loss: 0.2207 Acc: 0.9288 Prec: 0.9356 Rec: 0.9250 mAP: 0.9861
+2026-04-01 17:28:31,515 - INFO - Epoch 25/50 [LR: 0.000010] | Train -> Loss: 0.1020 Acc: 0.9616 Prec: 0.9616 Rec: 0.9616 mAP: 0.9943 | Val -> Loss: 0.2197 Acc: 0.9280 Prec: 0.9356 Rec: 0.9240 mAP: 0.9863
+2026-04-01 17:32:19,434 - INFO - Epoch 26/50 [LR: 0.000010] | Train -> Loss: 0.1019 Acc: 0.9623 Prec: 0.9623 Rec: 0.9623 mAP: 0.9941 | Val -> Loss: 0.2350 Acc: 0.9261 Prec: 0.9341 Rec: 0.9220 mAP: 0.9860
+2026-04-01 17:36:05,449 - INFO - Epoch 27/50 [LR: 0.000001] | Train -> Loss: 0.1050 Acc: 0.9606 Prec: 0.9606 Rec: 0.9606 mAP: 0.9935 | Val -> Loss: 0.2279 Acc: 0.9265 Prec: 0.9342 Rec: 0.9224 mAP: 0.9855
+2026-04-01 17:39:56,423 - INFO - Epoch 28/50 [LR: 0.000001] | Train -> Loss: 0.1063 Acc: 0.9599 Prec: 0.9599 Rec: 0.9599 mAP: 0.9935 | Val -> Loss: 0.2257 Acc: 0.9272 Prec: 0.9352 Rec: 0.9232 mAP: 0.9862
+2026-04-01 17:43:45,828 - INFO - Epoch 29/50 [LR: 0.000001] | Train -> Loss: 0.0935 Acc: 0.9649 Prec: 0.9649 Rec: 0.9649 mAP: 0.9945 | Val -> Loss: 0.2321 Acc: 0.9272 Prec: 0.9354 Rec: 0.9231 mAP: 0.9866
+2026-04-01 17:47:35,437 - INFO - Epoch 30/50 [LR: 0.000001] | Train -> Loss: 0.1012 Acc: 0.9611 Prec: 0.9611 Rec: 0.9611 mAP: 0.9942 | Val -> Loss: 0.2080 Acc: 0.9356 Prec: 0.9416 Rec: 0.9322 mAP: 0.9867
+2026-04-01 17:47:35,847 - INFO - Best model updated and saved: resnet50_checkpoint\best_resnet50_model.pth
+2026-04-01 17:51:25,885 - INFO - Epoch 31/50 [LR: 0.000001] | Train -> Loss: 0.1035 Acc: 0.9611 Prec: 0.9611 Rec: 0.9611 mAP: 0.9938 | Val -> Loss: 0.2361 Acc: 0.9261 Prec: 0.9349 Rec: 0.9218 mAP: 0.9864
+2026-04-01 17:55:14,704 - INFO - Epoch 32/50 [LR: 0.000001] | Train -> Loss: 0.0981 Acc: 0.9632 Prec: 0.9632 Rec: 0.9632 mAP: 0.9946 | Val -> Loss: 0.2324 Acc: 0.9272 Prec: 0.9358 Rec: 0.9230 mAP: 0.9866
+2026-04-01 17:59:03,374 - INFO - Epoch 33/50 [LR: 0.000001] | Train -> Loss: 0.1034 Acc: 0.9611 Prec: 0.9611 Rec: 0.9611 mAP: 0.9940 | Val -> Loss: 0.2107 Acc: 0.9314 Prec: 0.9371 Rec: 0.9281 mAP: 0.9854
+2026-04-01 18:02:52,045 - INFO - Epoch 34/50 [LR: 0.000000] | Train -> Loss: 0.0993 Acc: 0.9640 Prec: 0.9640 Rec: 0.9640 mAP: 0.9941 | Val -> Loss: 0.2189 Acc: 0.9303 Prec: 0.9370 Rec: 0.9266 mAP: 0.9861
+2026-04-01 18:06:40,699 - INFO - Epoch 35/50 [LR: 0.000000] | Train -> Loss: 0.1093 Acc: 0.9623 Prec: 0.9623 Rec: 0.9623 mAP: 0.9928 | Val -> Loss: 0.2046 Acc: 0.9349 Prec: 0.9404 Rec: 0.9316 mAP: 0.9863
+2026-04-01 18:10:29,188 - INFO - Epoch 36/50 [LR: 0.000000] | Train -> Loss: 0.0983 Acc: 0.9654 Prec: 0.9654 Rec: 0.9654 mAP: 0.9943 | Val -> Loss: 0.2302 Acc: 0.9257 Prec: 0.9336 Rec: 0.9216 mAP: 0.9862
+2026-04-01 18:14:17,799 - INFO - Epoch 37/50 [LR: 0.000000] | Train -> Loss: 0.0914 Acc: 0.9680 Prec: 0.9681 Rec: 0.9680 mAP: 0.9953 | Val -> Loss: 0.2240 Acc: 0.9303 Prec: 0.9357 Rec: 0.9270 mAP: 0.9850
+2026-04-01 18:18:06,294 - INFO - Epoch 38/50 [LR: 0.000000] | Train -> Loss: 0.1046 Acc: 0.9611 Prec: 0.9611 Rec: 0.9611 mAP: 0.9935 | Val -> Loss: 0.2217 Acc: 0.9280 Prec: 0.9358 Rec: 0.9240 mAP: 0.9867
+2026-04-01 18:21:55,117 - INFO - Epoch 39/50 [LR: 0.000000] | Train -> Loss: 0.0926 Acc: 0.9649 Prec: 0.9649 Rec: 0.9649 mAP: 0.9950 | Val -> Loss: 0.2197 Acc: 0.9330 Prec: 0.9393 Rec: 0.9294 mAP: 0.9860
+2026-04-01 18:25:53,377 - INFO - Epoch 40/50 [LR: 0.000000] | Train -> Loss: 0.0963 Acc: 0.9656 Prec: 0.9656 Rec: 0.9656 mAP: 0.9948 | Val -> Loss: 0.2399 Acc: 0.9234 Prec: 0.9330 Rec: 0.9189 mAP: 0.9861
+2026-04-01 18:29:42,063 - INFO - Epoch 41/50 [LR: 0.000000] | Train -> Loss: 0.0996 Acc: 0.9604 Prec: 0.9604 Rec: 0.9604 mAP: 0.9944 | Val -> Loss: 0.2480 Acc: 0.9219 Prec: 0.9317 Rec: 0.9173 mAP: 0.9858
+2026-04-01 18:33:38,177 - INFO - Epoch 42/50 [LR: 0.000000] | Train -> Loss: 0.0997 Acc: 0.9628 Prec: 0.9628 Rec: 0.9628 mAP: 0.9942 | Val -> Loss: 0.2321 Acc: 0.9272 Prec: 0.9346 Rec: 0.9233 mAP: 0.9855
+2026-04-01 18:37:26,543 - INFO - Epoch 43/50 [LR: 0.000000] | Train -> Loss: 0.0943 Acc: 0.9654 Prec: 0.9654 Rec: 0.9654 mAP: 0.9950 | Val -> Loss: 0.2286 Acc: 0.9265 Prec: 0.9342 Rec: 0.9224 mAP: 0.9858
+2026-04-01 18:41:15,258 - INFO - Epoch 44/50 [LR: 0.000000] | Train -> Loss: 0.1006 Acc: 0.9673 Prec: 0.9673 Rec: 0.9673 mAP: 0.9939 | Val -> Loss: 0.2241 Acc: 0.9269 Prec: 0.9349 Rec: 0.9228 mAP: 0.9863
+2026-04-01 18:45:03,888 - INFO - Epoch 45/50 [LR: 0.000000] | Train -> Loss: 0.0943 Acc: 0.9659 Prec: 0.9659 Rec: 0.9659 mAP: 0.9951 | Val -> Loss: 0.2336 Acc: 0.9242 Prec: 0.9324 Rec: 0.9200 mAP: 0.9859
+2026-04-01 18:48:52,432 - INFO - Epoch 46/50 [LR: 0.000000] | Train -> Loss: 0.0974 Acc: 0.9661 Prec: 0.9662 Rec: 0.9661 mAP: 0.9947 | Val -> Loss: 0.2395 Acc: 0.9223 Prec: 0.9302 Rec: 0.9182 mAP: 0.9846
+2026-04-01 18:52:40,879 - INFO - Epoch 47/50 [LR: 0.000000] | Train -> Loss: 0.0961 Acc: 0.9656 Prec: 0.9656 Rec: 0.9656 mAP: 0.9948 | Val -> Loss: 0.2344 Acc: 0.9269 Prec: 0.9339 Rec: 0.9230 mAP: 0.9850
+2026-04-01 18:56:29,502 - INFO - Epoch 48/50 [LR: 0.000000] | Train -> Loss: 0.1023 Acc: 0.9621 Prec: 0.9621 Rec: 0.9621 mAP: 0.9938 | Val -> Loss: 0.2448 Acc: 0.9238 Prec: 0.9331 Rec: 0.9193 mAP: 0.9854
+2026-04-01 19:00:18,051 - INFO - Epoch 49/50 [LR: 0.000000] | Train -> Loss: 0.0925 Acc: 0.9647 Prec: 0.9647 Rec: 0.9647 mAP: 0.9953 | Val -> Loss: 0.2031 Acc: 0.9349 Prec: 0.9399 Rec: 0.9317 mAP: 0.9863
+2026-04-01 19:04:06,894 - INFO - Epoch 50/50 [LR: 0.000000] | Train -> Loss: 0.1078 Acc: 0.9611 Prec: 0.9612 Rec: 0.9611 mAP: 0.9933 | Val -> Loss: 0.2363 Acc: 0.9230 Prec: 0.9319 Rec: 0.9187 mAP: 0.9850
+2026-04-01 19:04:06,894 - INFO - Training complete. Best validation accuracy:  0.9356

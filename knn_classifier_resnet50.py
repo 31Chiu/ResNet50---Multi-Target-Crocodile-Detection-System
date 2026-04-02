@@ -39,7 +39,8 @@ def load_pretrained_resnet50(model_path):
         raise FileNotFoundError(f'Model checkpoint not found at {model_path}')
     # Load the entire saved file, which is a dictionary (checkpoint) containing various places of data.
     checkpoint = torch.load(model_path, map_location=device)
-    num_classes = len(checkpoint['classes'])
+    # num_classes = len(checkpoint['classes'])
+    num_classes = 2
 
     # Load the model structure
     model = models.resnet50(weights=None)   # weights=None as we will load our own
@@ -114,8 +115,10 @@ def main():
     # 2. Prepare the dataset
     # Define the same transformations used during the model's validation phase
     transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
+        # transforms.Resize(256),
+        # transforms.CenterCrop(224),
+        transforms.Resize(680),
+        transforms.CenterCrop(640),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])

@@ -33,7 +33,8 @@ def main():
     model.eval()
     print(f"Successfully loaded model weights! Highest validation accuracy: {checkpoint['accuracy']:.4f}")
 
-    target_layers = [model.layer4[-1]]
+    # target_layers = [model.layer4[-1]]
+    target_layers = [model.layer3[-1]]
 
     input_dir = 'Test_Eigen-CAM_Images'
     img_path = os.path.join(input_dir, image_name) 
@@ -46,8 +47,10 @@ def main():
     rgb_img_float = np.float32(rgb_img) / 255
     
     transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
+        # transforms.Resize(256),
+        # transforms.CenterCrop(224),
+        transforms.Resize(680),
+        transforms.CenterCrop(640),
         transforms.ToTensor(),
         transforms.Normalize(mean, std)
     ])
@@ -57,7 +60,8 @@ def main():
     cam = EigenCAM(model=model, target_layers=target_layers)
     grayscale_cam = cam(input_tensor=input_tensor, targets=None)[0, :]
     
-    resized_img = cv2.resize(rgb_img_float, (224, 224))
+    # resized_img = cv2.resize(rgb_img_float, (224, 224))
+    resized_img = cv2.resize(rgb_img_float, (640, 640))
     visualization = show_cam_on_image(resized_img, grayscale_cam, use_rgb=True)
 
     output_dir = 'Test_Eigen-CAM_Results'

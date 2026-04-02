@@ -11,7 +11,7 @@ import logging
 from sklearn.metrics import average_precision_score
 import numpy as np
 
-# Configure logging to save progress and output to the console
+# 配置日志
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -22,70 +22,50 @@ logging.basicConfig(
 )
 
 class ResNet50Trainer:
-    def __init__(self, train_dir, val_dir, num_epochs=50, batch_size=32, learning_rate=0.001):
-        # 1. Setup the main environment and hardware
+    def __init__(self, train_dir, val_dir, num_epochs=50, learning_rate=0.001):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         if torch.cuda.is_available():
             torch.cuda.set_device(0)
             torch.cuda.empty_cache()
 
-        # 2. Define key training parameters
         self.num_epochs = num_epochs
-        self.batch_size = batch_size
         self.learning_rate = learning_rate
+        
+        # 🌟 核心修改 1：设置物理批次与梯度累加步数
+        self.physical_batch_size = 8   # 显卡实际每次处理 8 张图 (防 OOM)
+        self.accumulation_steps = 4    # 累加 4 次 (8 * 4 = 32 逻辑批次)
 
-        # 3. Set data paths
         self.train_dir = train_dir
         self.val_dir = val_dir
 
-        # 4. Initialize image transformations
         self.train_transform, self.val_transform = self._build_transforms()
 
-        # 5. Load the datasets
-        self.train_loader, self.val_loader, self.num_classes = self._load_data()
+        train_dataset = datasets.ImageFolder(root=self.train_dir, transform=self.train_transform)
+        self.train_loader = torch.utils.data.DataLoader(
+            train_dataset, batch_size=self.physical_batch_size, shuffle=True, 
+            num_workers=4, pin_memory=True
+        )
 
-        # 6. Build the AI model
+        val_dataset = datasets.ImageFolder(root=self.val_dir, transform=self.val_transform)
+        self.val_loader = torch.utils.data.DataLoader(
+            val_dataset, batch_size=self.physical_batch_size, shuffle=False, 
+            num_workers=4, pin_memory=True
+        )
+
         self.model = self._build_model()
-
-        # 7. Define the loss function and the optimizer
         self.criterion = nn.CrossEntropyLoss()
-        self.optimizer = optim.SGD(
-            self.model.parameters(),
-            lr=self.learning_rate,
-            momentum=0.9,
-            weight_decay=1e-4
-        )
+        self.optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
+        self.scheduler = optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='max', factor=0.1, patience=3, verbose=True)
 
-        # 8. Set up a learning rate scheduler
-        self.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-            self.optimizer,
-            mode='max',
-            factor=0.1,
-            patience=7,
-            min_lr=1e-6
-        )
-
-        # 9. Variable to track the best performance
         self.best_acc = 0.0
 
     def _build_transforms(self):
-        # Build data transforms for training and validation sets.
-        # ImageNet statistics for normalization (Crucial for transfer learning)
         mean = [0.485, 0.456, 0.406]
         std = [0.229, 0.224, 0.225]
 
-        # Transformations for the training data to introduce variability
-        # train_transform = transforms.Compose([
-        #     transforms.RandomResizedCrop(224),
-        #     transforms.RandomHorizontalFlip(),
-        #     transforms.RandomRotation(15),
-        #     transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
-        #     transforms.ToTensor(),
-        #     transforms.Normalize(mean, std)
-        # ])
-        # Radical data augmentation (fully consistent with ResNet-18)
+        # 🌟 同步 640x640 视野
         train_transform = transforms.Compose([
-            transforms.RandomResizedCrop(224),
+            transforms.RandomResizedCrop(640), 
             transforms.RandomHorizontalFlip(),
             transforms.RandomRotation(30), 
             transforms.RandomAffine(degrees=0, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=10),
@@ -95,175 +75,131 @@ class ResNet50Trainer:
             transforms.RandomErasing(p=0.2, scale=(0.02, 0.2), ratio=(0.3, 3.3), value='random') 
         ])
 
-        # Transformations for the validation data (no augmentation)
         val_transform = transforms.Compose([
-            transforms.Resize(256),
-            transforms.CenterCrop(224),
+            transforms.Resize(680),            
+            transforms.CenterCrop(640),        
             transforms.ToTensor(),
             transforms.Normalize(mean, std)
         ])
-
         return train_transform, val_transform
-    
-    def _load_data(self):
-        # Load and prepare the datasets for training and validation.
-        train_dataset = datasets.ImageFolder(root=self.train_dir, transform=self.train_transform)
-        val_dataset = datasets.ImageFolder(root=self.val_dir, transform=self.val_transform)
 
-        train_loader = torch.utils.data.DataLoader(
-            train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=4, pin_memory=True
-        )
-        val_loader = torch.utils.data.DataLoader(
-            val_dataset, batch_size=self.batch_size, shuffle=False, num_workers=4, pin_memory=True
-        )
-
-        logging.info(f'Number of classes: {len(train_dataset.classes)}')
-        logging.info(f'Class names: {train_dataset.classes}')
-        
-        # Record the index for 'crocodile' class to calculate TP, FP, FN
-        self.crocodile_idx = train_dataset.classes.index('crocodile')
-
-        return train_loader, val_loader, len(train_dataset.classes)
-    
     def _build_model(self):
-        # Build the ResNet50 model using transfer learning.
-        # Load a pretrained ResNet50 model
-        model = resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
-
-        # Replace the final layer to match the number of classes in our project
-        num_features = model.fc.in_features
+        model = resnet50(weights=ResNet50_Weights.DEFAULT)
+        num_ftrs = model.fc.in_features
         model.fc = nn.Sequential(
             nn.Dropout(0.5),
-            nn.Linear(num_features, self.num_classes)
+            nn.Linear(num_ftrs, 2)
         )
+        return model.to(self.device)
 
-        # Send the model to the designated device (GPU or CPU)
-        model = model.to(self.device)
-        return model
-    
     def train_epoch(self):
-        # Logic for training the model for one complete pass over the training data.
-        self.model.train() # Set the model to training mode
+        self.model.train()
         running_loss = 0.0
-        running_corrects = 0
+        correct = 0
         total = 0
-
-        running_tp = 0
-        running_fp = 0
-        running_fn = 0
         all_labels = []
-        all_probs = []
+        all_preds = []
 
-        for inputs, labels in self.train_loader:
-            inputs, labels = inputs.to(self.device), labels.to(self.device)
-            self.optimizer.zero_grad()
+        # 🌟 确保在 epoch 开始前梯度已清零
+        self.optimizer.zero_grad()
 
-            outputs = self.model(inputs)
+        for i, (images, labels) in enumerate(self.train_loader):
+            images, labels = images.to(self.device), labels.to(self.device)
+
+            outputs = self.model(images)
             loss = self.criterion(outputs, labels)
 
+            # 🌟 核心修改 3：按累加步数缩小 loss
+            loss = loss / self.accumulation_steps
             loss.backward()
-            self.optimizer.step()
 
-            _, preds = torch.max(outputs, 1)
-            running_loss += loss.item() * inputs.size(0)
-            running_corrects += torch.sum(preds == labels.data)
+            # 🌟 核心修改 4：达到步数，或到达最后一个 batch 时，更新权重
+            if (i + 1) % self.accumulation_steps == 0 or (i + 1) == len(self.train_loader):
+                self.optimizer.step()
+                self.optimizer.zero_grad()
+
+            # 将 loss 还原回真实比例用于统计
+            running_loss += (loss.item() * self.accumulation_steps) * images.size(0)
+            _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
+            correct += (predicted == labels).sum().item()
 
-            # Calculate True Positives, False Positives, False Negatives
-            running_tp += torch.sum((preds == self.crocodile_idx) & (labels.data == self.crocodile_idx)).item()
-            running_fp += torch.sum((preds == self.crocodile_idx) & (labels.data != self.crocodile_idx)).item()
-            running_fn += torch.sum((preds != self.crocodile_idx) & (labels.data == self.crocodile_idx)).item()
-
-            # Calculate probabilities for mAP (AP)
-            probs = torch.softmax(outputs, dim=1)
-            binary_labels = (labels.data == self.crocodile_idx).cpu().numpy()
-            croc_probs = probs[:, self.crocodile_idx].detach().cpu().numpy()
-            all_labels.extend(binary_labels)
-            all_probs.extend(croc_probs)
+            all_labels.extend(labels.cpu().numpy())
+            # 对于二分类，提取正类的概率用于 mAP
+            probs = torch.nn.functional.softmax(outputs, dim=1)
+            all_preds.extend(probs[:, 1].detach().cpu().numpy())
 
         epoch_loss = running_loss / total
-        epoch_acc = running_corrects.double() / total
+        epoch_acc = correct / total
         
-        precision = running_tp / (running_tp + running_fp) if (running_tp + running_fp) > 0 else 0.0
-        recall = running_tp / (running_tp + running_fn) if (running_tp + running_fn) > 0 else 0.0
-        epoch_map = average_precision_score(all_labels, all_probs) if len(set(all_labels)) > 1 else 0.0
+        # 计算精确率、召回率和 mAP 
+        # (这里简化处理，假设类别 1 是目标类。在实际中需确保这与你的特定类索引匹配)
+        preds_binary = (np.array(all_preds) > 0.5).astype(int)
         
-        return epoch_loss, epoch_acc.item(), precision, recall, epoch_map
-    
+        from sklearn.metrics import precision_score, recall_score
+        epoch_prec = precision_score(all_labels, preds_binary, average='macro', zero_division=0)
+        epoch_rec = recall_score(all_labels, preds_binary, average='macro', zero_division=0)
+        epoch_map = average_precision_score(all_labels, all_preds)
+
+        return epoch_loss, epoch_acc, epoch_prec, epoch_rec, epoch_map
+
     def validate(self):
-        # Logic for evaluating the model's performance on the validation data.
-        self.model.eval() # Set the model to evaluation mode
+        self.model.eval()
         running_loss = 0.0
-        running_corrects = 0
+        correct = 0
         total = 0
-
-        running_tp = 0
-        running_fp = 0
-        running_fn = 0
         all_labels = []
-        all_probs = []
+        all_preds = []
 
-        with torch.no_grad(): # Disable gradient calculation for efficiency
-            for inputs, labels in self.val_loader:
-                inputs, labels = inputs.to(self.device), labels.to(self.device)
-
-                outputs = self.model(inputs)
+        with torch.no_grad():
+            for images, labels in self.val_loader:
+                images, labels = images.to(self.device), labels.to(self.device)
+                outputs = self.model(images)
                 loss = self.criterion(outputs, labels)
 
-                _, preds = torch.max(outputs, 1)
-                running_loss += loss.item() * inputs.size(0)
-                running_corrects += torch.sum(preds == labels.data)
+                running_loss += loss.item() * images.size(0)
+                _, predicted = torch.max(outputs.data, 1)
                 total += labels.size(0)
+                correct += (predicted == labels).sum().item()
 
-                running_tp += torch.sum((preds == self.crocodile_idx) & (labels.data == self.crocodile_idx)).item()
-                running_fp += torch.sum((preds == self.crocodile_idx) & (labels.data != self.crocodile_idx)).item()
-                running_fn += torch.sum((preds != self.crocodile_idx) & (labels.data == self.crocodile_idx)).item()
+                all_labels.extend(labels.cpu().numpy())
+                probs = torch.nn.functional.softmax(outputs, dim=1)
+                all_preds.extend(probs[:, 1].cpu().numpy())
 
-                probs = torch.softmax(outputs, dim=1)
-                binary_labels = (labels.data == self.crocodile_idx).cpu().numpy()
-                croc_probs = probs[:, self.crocodile_idx].cpu().numpy()
-                all_labels.extend(binary_labels)
-                all_probs.extend(croc_probs)
-
-            epoch_loss = running_loss / total
-            epoch_acc = running_corrects.double() / total
-            
-            precision = running_tp / (running_tp + running_fp) if (running_tp + running_fp) > 0 else 0.0
-            recall = running_tp / (running_tp + running_fn) if (running_tp + running_fn) > 0 else 0.0
-            epoch_map = average_precision_score(all_labels, all_probs) if len(set(all_labels)) > 1 else 0.0
-            
-            return epoch_loss, epoch_acc.item(), precision, recall, epoch_map
+        epoch_loss = running_loss / total
+        epoch_acc = correct / total
         
-    def save_checkpoint(self, epoch, acc):
-        # Save the model's state as a checkpoint file.
-        checkpoint_dir = 'resnet50_checkpoint'
-        os.makedirs(checkpoint_dir, exist_ok=True)
+        preds_binary = (np.array(all_preds) > 0.5).astype(int)
+        
+        from sklearn.metrics import precision_score, recall_score
+        epoch_prec = precision_score(all_labels, preds_binary, average='macro', zero_division=0)
+        epoch_rec = recall_score(all_labels, preds_binary, average='macro', zero_division=0)
+        epoch_map = average_precision_score(all_labels, all_preds)
 
-        checkpoint = {
-            'epoch' : epoch,
-            'model_state_dict' : self.model.state_dict(),
-            'optimizer_state_dict' : self.optimizer.state_dict(),
-            'scheduler_state_dict' : self.scheduler.state_dict(),
-            'accuracy' : acc,
-            'classes' : self.train_loader.dataset.classes
-        }
+        return epoch_loss, epoch_acc, epoch_prec, epoch_rec, epoch_map
 
-        # Save the best performing model separately
-        if acc > self.best_acc:
-            self.best_acc = acc
-            best_path = os.path.join(checkpoint_dir, 'best_resnet50_model.pth')
-            torch.save(checkpoint, best_path)
-            logging.info(f'Best model updated and saved: {best_path}')
+    def save_checkpoint(self, epoch, val_acc):
+        if val_acc > self.best_acc:
+            self.best_acc = val_acc
+            checkpoint_dir = 'resnet50_checkpoint'
+            os.makedirs(checkpoint_dir, exist_ok=True)
+            checkpoint_path = os.path.join(checkpoint_dir, 'best_resnet50_model.pth')
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': self.model.state_dict(),
+                'optimizer_state_dict': self.optimizer.state_dict(),
+                'accuracy': val_acc
+            }, checkpoint_path)
+            logging.info(f'Best model updated and saved: {checkpoint_path}')
 
-    def train(self):
-        # The main training loop that orchestrates the entire process.
+    def run(self):
         logging.info(f'Starting training on device: {self.device}')
 
         for epoch in range(1, self.num_epochs + 1):
             train_loss, train_acc, train_prec, train_rec, train_map = self.train_epoch()
             val_loss, val_acc, val_prec, val_rec, val_map = self.validate()
-            self.scheduler.step(val_acc)
             
+            self.scheduler.step(val_acc)
             current_lr = self.optimizer.param_groups[0]['lr']
 
             logging.info(
@@ -271,33 +207,22 @@ class ResNet50Trainer:
                 f'Train -> Loss: {train_loss:.4f} Acc: {train_acc:.4f} Prec: {train_prec:.4f} Rec: {train_rec:.4f} mAP: {train_map:.4f} | '
                 f'Val -> Loss: {val_loss:.4f} Acc: {val_acc:.4f} Prec: {val_prec:.4f} Rec: {val_rec:.4f} mAP: {val_map:.4f}'
             )
-
             self.save_checkpoint(epoch, val_acc)
 
         logging.info(f'Training complete. Best validation accuracy: {self.best_acc: .4f}')
 
 def main():
-    # Main function to configure and run the training.
-    # Set seeds for reproducibility
     torch.manual_seed(42)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(42)
         torch.backends.cudnn.benchmark = True
 
-    # Define paths and parameters
     base_dir = os.path.dirname(os.path.abspath(__file__))
     train_dir = os.path.join(base_dir, './dataset/Training')
     val_dir = os.path.join(base_dir, './dataset/Validation')
 
-    # Initialize and run the trainer
-    trainer = ResNet50Trainer(
-        train_dir=train_dir,
-        val_dir=val_dir,
-        num_epochs=50,
-        batch_size=32,
-        learning_rate=0.001
-    )
-    trainer.train()
+    trainer = ResNet50Trainer(train_dir=train_dir, val_dir=val_dir, num_epochs=50)
+    trainer.run()
 
 if __name__ == '__main__':
     main()
